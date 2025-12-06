@@ -1,4 +1,4 @@
-import { ProductCards } from "../components/ProductCards";
+import { ProductsList } from "../components/products-list";
 import logo from "../assets/logo-icon.png";
 
 export function Welcome() {
@@ -18,7 +18,7 @@ export function Welcome() {
         </div>
       </header>
       <section className="px-48 py-18 bg-neutral-200">
-        <ProductCards
+        <ProductsList
           onCheckout={(p) => console.log(JSON.stringify(p))}
           onPayIntent={(p) => console.log(JSON.stringify(p))}
         />
