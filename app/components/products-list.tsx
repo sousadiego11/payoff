@@ -1,4 +1,4 @@
-import { products, type Product } from "~/database/Products";
+import { products, type Product } from "~/server/database/Products";
 
 export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Product) => void; onPayIntent: (p: Product) => void; }) {
     return (
