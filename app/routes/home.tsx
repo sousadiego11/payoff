@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
-import type { Route } from "./+types/home";
 import { Header } from "~/components/header";
 import { ProductsList } from "~/components/products-list";
+import type { Route } from "../+types/root";
 
 export function meta({ }: Route.MetaArgs) {
   return [

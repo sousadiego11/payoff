@@ -1,4 +1,5 @@
 import { products, type Product } from "~/server/database/Products";
+import { Button } from "./button";
 
 export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Product) => void; onPayIntent: (p: Product) => void; }) {
     return (
@@ -28,20 +29,12 @@ export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Prod
                     </div>
 
                     <div className="mt-4 flex items-center justify-between gap-3">
-                        <button
-                            onClick={() => onCheckout(p)}
-                            type="button"
-                            className="cursor-pointer flex-1 bg-blue-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-600 transition"
-                        >
+                        <Button onClick={() => onCheckout(p)} >
                             Checkout Integration
-                        </button>
-                        <button
-                            onClick={() => onPayIntent(p)}
-                            type="button"
-                            className="cursor-pointer flex-1 ml-3 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-md shadow-sm hover:bg-gray-50 transition"
-                        >
+                        </Button>
+                        <Button onClick={() => onPayIntent(p)} >
                             Pay Intent Integration
-                        </button>
+                        </Button>
                     </div>
                 </div>
             ))}
