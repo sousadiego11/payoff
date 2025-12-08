@@ -4,4 +4,5 @@ export default [
     index("routes/home.route.tsx"),
     route("/checkout/:productId", "routes/checkout.route.tsx"),
     route("/payment-intent/:productId", "routes/payment-intent.route.tsx"),
+    route("/payment-processed", "routes/payment-processed.route.tsx"),
 ] satisfies RouteConfig;
