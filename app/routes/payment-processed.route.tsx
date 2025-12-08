@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import type { Route } from "../+types/root";
 import { useNavigate } from "react-router";
 import { Button } from "~/components/button";
+import { Spinner } from "~/components/spinner";
 
 export function meta({ }: Route.MetaArgs) {
     return [
-        { title: "Payment Successful" }
+        { title: "Payment Processing" }
     ];
 }
 
@@ -31,15 +32,16 @@ export default function PaymentProcessed(props: Route.ComponentProps) {
         <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
             <div className="max-w-2xl w-full bg-white rounded-xl shadow-lg p-8 text-center">
 
+                {/* Processing spinner */}
                 <div className="flex items-center justify-center mb-6">
-                    <svg className="h-12 w-12 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
+                    <Spinner />
                 </div>
 
-                <h1 className="text-2xl font-bold mb-2 text-green-700">Payment Successful!</h1>
+                <h1 className="text-2xl font-bold mb-2">Your payment is being processed</h1>
+
                 <p className="text-gray-600 mb-4">
-                    Your payment has been completed. Thank you for your purchase!
+                    We received your payment request and it may take a few moments to confirm it.
+                    You will be notified once the status is updated.
                 </p>
 
                 <div className="text-sm text-gray-700 mb-6">
