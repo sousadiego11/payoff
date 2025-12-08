@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate, useNavigation } from "react-router";
 import { Header } from "~/components/header";
 import { ProductsList } from "~/components/products-list";
 import type { Route } from "../+types/root";
@@ -10,7 +10,11 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Home() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const navigation = useNavigation();
+
+  const isLoading = navigation.state !== "idle";
+  console.log("🚀 ~ Home ~ isLoading:", isLoading)
 
   return (
     <main className="flex flex-col">

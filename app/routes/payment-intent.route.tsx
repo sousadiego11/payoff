@@ -1,7 +1,7 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import type Stripe from "stripe";
-import PaymentScreen from "~/components/payment-screen";
+import PaymentIntentProduct from "~/components/payment-intent-product";
 import { DB, type Product } from "~/server/database/Products";
 import { StripeIntentPort } from "~/server/stripe/StripeIntentPort";
 import { PaymentIntentForm } from "../components/payment-intent-form";
@@ -28,10 +28,15 @@ export default function PaymentIntent(props: Route.ComponentProps) {
     const data = props.loaderData as unknown as { intent: Stripe.Response<Stripe.PaymentIntent>, product: Product };
 
     return (
-        <PaymentScreen product={data.product}>
-            <Elements stripe={stripePromise} options={{ clientSecret: data.intent.client_secret! }}>
-                <PaymentIntentForm intent={data.intent} />
-            </Elements>
-        </PaymentScreen>
+        <main className="flex flex-row p-20 gap-8">
+            <aside className="flex-2">
+                <Elements stripe={stripePromise} options={{ clientSecret: data.intent.client_secret! }}>
+                    <PaymentIntentForm intent={data.intent} />
+                </Elements>
+            </aside>
+            <aside className="flex-1">
+                <PaymentIntentProduct product={data.product} />
+            </aside>
+        </main>
     )
 }
