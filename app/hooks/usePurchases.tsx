@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useUserSession } from "./useUserSession";
-import type { PurchaseInformation } from "~/server/database/Database";
+import type { Purchase } from "~/server/domain/Purchase";
 
 export function usePurchases() {
     const session = useUserSession()
@@ -17,5 +17,5 @@ export function usePurchases() {
             .finally(() => setLoading(false));
     }, [session]);
 
-    return [loading, purchases] as [boolean, PurchaseInformation[]];
+    return [loading, purchases] as [boolean, Purchase.Purchase[]];
 }

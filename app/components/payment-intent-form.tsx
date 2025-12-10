@@ -2,7 +2,7 @@ import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { useState } from "react";
 import type Stripe from "stripe";
 import { Button } from "~/components/button";
-import { Currency } from "~/utils/Currency";
+import { Currency } from "~/server/domain/Currency";
 
 export function PaymentIntentForm({ intent }: { intent: Stripe.Response<Stripe.PaymentIntent> }) {
     const stripe = useStripe();

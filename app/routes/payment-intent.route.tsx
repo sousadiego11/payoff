@@ -2,11 +2,11 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import type Stripe from "stripe";
 import PaymentIntentProduct from "~/components/payment-intent-product";
-import { DB, type Product } from "~/server/database/Database";
-import { StripeIntentPort } from "~/server/stripe/StripeIntentPort";
-import { PaymentIntentForm } from "../components/payment-intent-form";
+import { StripePurchaseAdapter } from "~/server/stripe/StripePurchaseAdapter";
 import type { Route } from "../+types/root";
-import { Currency } from "~/utils/Currency";
+import { PaymentIntentForm } from "../components/payment-intent-form";
+import { DB } from "~/server/database/Database";
+import type { Product } from "~/server/domain/Product";
 
 const stripePromise = loadStripe("pk_test_51SaHXqBN7ROgVArwJbgHVc6HGNkgdwKOPCb8KgjbJMKBX4DrCXZEahC9yP8HGxgDQostnR3ooIBmkbrILUZ9CrjL00P7CPcIGy");
 
@@ -20,8 +20,11 @@ export async function loader({ params }: Route.LoaderArgs) {
     const { productId, userSession } = params as { productId: string, userSession: string };
 
     const db = await DB.make();
+    const adapter = await StripePurchaseAdapter.make()
+
     const product = await db.getProductById(Number(productId));
-    const intent = await new StripeIntentPort().create(product, Currency.getCurrencyCode(), userSession)
+    const intent = await adapter.createPayment(Number(productId), userSession)
+
     return { intent, product }
 }
 

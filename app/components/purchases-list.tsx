@@ -1,9 +1,9 @@
-import type { PurchaseInformation } from "~/server/database/Database";
-import { Currency } from "~/utils/Currency";
+import { Currency } from "~/server/domain/Currency";
 import { PaymentStatusBadge } from "./payment-status-badge";
+import type { Purchase } from "~/server/domain/Purchase";
 
 type Props = {
-    purchases: PurchaseInformation[];
+    purchases: Purchase.Purchase[];
     className?: string;
 };
 
@@ -39,18 +39,17 @@ export default function PurchasesCard({ purchases }: Props) {
                     </div>
                 )}
 
-                {purchases.map((p, i) => {
-                    const payment = p.payment;
-                    const amount = Currency.format(Currency.fromStripeAmount(payment.amount))
+                {purchases.map((purchase, i) => {
+                    const amount = Currency.format(Currency.fromStripeAmount(purchase.payment.amount))
 
                     return (
                         <div key={i} className="p-4 flex flex-col gap-2 bg-white rounded-xl">
                             <div className="flex gap-2 items-center justify-between">
                                 <div className="font-semibold text-gray-900">
-                                    {p.product.name}
+                                    {purchase.product.name}
                                 </div>
-                                <PaymentStatusBadge purchase={p} />
-                                <ViewedBadge viewed={p.process.viewed} />
+                                <PaymentStatusBadge purchase={purchase} />
+                                <ViewedBadge viewed={purchase.viewed} />
                             </div>
 
                             <div className="text-sm text-gray-700">
@@ -58,11 +57,11 @@ export default function PurchasesCard({ purchases }: Props) {
                             </div>
 
                             <div className="text-sm text-gray-700">
-                                <strong>Identifier:</strong> {payment.id}
+                                <strong>Identifier:</strong> {purchase.id}
                             </div>
 
                             <div className="text-xs text-gray-500">
-                                {new Date(payment.created * 1000).toLocaleString("en-US")}
+                                {new Date(purchase.payment.created * 1000).toLocaleString("en-US")}
                             </div>
                         </div>
                     );

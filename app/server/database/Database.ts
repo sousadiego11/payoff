@@ -1,14 +1,6 @@
-import type Stripe from "stripe";
-
-export type Product = {
-    id: number;
-    name: string;
-    price: number;
-    oldPrice: number;
-    progress: number;
-    saleLabel: string;
-    image: string;
-};
+import type { Product } from "../domain/Product";
+import type { Purchase } from "../domain/Purchase";
+import type { Session } from "../domain/Session";
 
 export const products: Array<Product> = [
     { id: 1, name: "Aenean fringilla", price: 129.00, oldPrice: 199.00, progress: 75, saleLabel: "9/10", image: "https://picsum.photos/600" },
@@ -17,18 +9,7 @@ export const products: Array<Product> = [
     { id: 3, name: "Emte Os", price: 39.00, oldPrice: 59.00, progress: 90, saleLabel: "9/10", image: "https://picsum.photos/900" }
 ];
 
-type ClientSessionId = string
-type PurchaseId = string
-export type PurchaseInformation = {
-    product: Product,
-    payment: Stripe.PaymentIntent | Stripe.Charge,
-    process: {
-        viewed: boolean
-    }
-}
-type ClientPurchases = Map<PurchaseId, PurchaseInformation>
-
-export const purchases = new Map<ClientSessionId, ClientPurchases>()
+export const purchases = new Map<Session.Id, Map<Purchase.Id, Purchase.Purchase>>()
 
 export class DB {
     public static async make() {
@@ -42,14 +23,14 @@ export class DB {
         return product
     }
 
-    async updatePurchase(userSession: ClientSessionId, purchaseId: PurchaseId, update: PurchaseInformation) {
-        const userPurchases: ClientPurchases = purchases.get(userSession) || new Map()
-        userPurchases.set(purchaseId, update)
-        purchases.set(userSession, userPurchases)
+    async updatePurchase(purchase: Purchase.Purchase) {
+        const userPurchases: Map<Purchase.Id, Purchase.Purchase> = purchases.get(purchase.session) || new Map()
+        userPurchases.set(purchase.id, purchase)
+        purchases.set(purchase.session, userPurchases)
     }
 
-    async getPurchases(userSession: ClientSessionId): Promise<Array<PurchaseInformation>> {
-        const p = purchases.get(userSession) || new Map()
+    async getPurchases(session: Session.Id): Promise<Array<Purchase.Purchase>> {
+        const p = purchases.get(session) || new Map()
         return Array.from(p.values())
     }
 }

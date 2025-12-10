@@ -1,53 +1,8 @@
-import type Stripe from "stripe";
-import type { PurchaseInformation } from "~/server/database/Database";
-
-type UnifiedStatus =
-    | "succeeded"
-    | "processing"
-    | "requires_action"
-    | "requires_payment_method"
-    | "requires_confirmation"
-    | "canceled"
-    | "failed"
-    | "refunded"
-    | "partially_refunded"
-    | "disputed"
-    | "unknown";
-
-function getUnifiedStatus(
-    payment: Stripe.PaymentIntent | Stripe.Charge
-): UnifiedStatus {
-
-    // ---- PAYMENT INTENT ----
-    if (payment.object === "payment_intent") {
-        return (
-            payment.status ??
-            "unknown"
-        ) as UnifiedStatus;
-    }
-
-    // ---- CHARGE ----
-    if (payment.object === "charge") {
-        if (payment.disputed) return "disputed";
-
-        if (payment.refunded) {
-            if (payment.amount_refunded === payment.amount) {
-                return "refunded";
-            }
-            return "partially_refunded";
-        }
-
-        return (payment.status ?? "unknown") as UnifiedStatus;
-    }
-
-    return "unknown";
-}
+import type { Purchase } from "~/server/domain/Purchase";
 
 
-export function PaymentStatusBadge({ purchase }: { purchase: PurchaseInformation }) {
-    const status = getUnifiedStatus(purchase.payment);
-
-    const colors: Record<UnifiedStatus, string> = {
+export function PaymentStatusBadge({ purchase }: { purchase: Purchase.Purchase }) {
+    const colors: Record<Purchase.Status, string> = {
         succeeded: "bg-green-100 text-green-800",
         processing: "bg-blue-100 text-blue-700",
         requires_action: "bg-yellow-100 text-yellow-700",
@@ -63,7 +18,7 @@ export function PaymentStatusBadge({ purchase }: { purchase: PurchaseInformation
         unknown: "bg-gray-100 text-gray-700",
     };
 
-    const labels: Record<UnifiedStatus, string> = {
+    const labels: Record<Purchase.Status, string> = {
         succeeded: "Payment Succeeded",
         processing: "Processing",
         requires_action: "Action Required",
@@ -80,8 +35,8 @@ export function PaymentStatusBadge({ purchase }: { purchase: PurchaseInformation
     };
 
     return (
-        <span className={`text-xs px-2 py-1 rounded-full font-medium ${colors[status]}`}>
-            {labels[status]}
+        <span className={`text-xs px-2 py-1 rounded-full font-medium ${colors[purchase.payment.status]}`}>
+            {labels[purchase.payment.status]}
         </span>
     );
 }

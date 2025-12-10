@@ -1,6 +1,6 @@
 import React from "react";
-import type { Product } from "~/server/database/Database";
-import { Currency } from "~/utils/Currency";
+import { Currency } from "~/server/domain/Currency";
+import type { Product } from "~/server/domain/Product";
 
 type Props = {
     product: Product;
