@@ -1,7 +1,13 @@
-import { products, type Product } from "~/server/database/Database";
+import { products } from "~/server/database/Database";
 import { Button } from "./button";
+import type { Product } from "~/server/domain/Product";
+import { useNavigation } from "react-router";
 
 export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Product) => void; onPayIntent: (p: Product) => void; }) {
+
+    const navigation = useNavigation();
+    const isLoading = navigation.state !== "idle";
+
     return (
         <div className="
             grid grid-cols-1 md:grid-cols-2 gap-12 
@@ -33,10 +39,10 @@ export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Prod
                     </div>
 
                     <div className="mt-4 flex items-center justify-between gap-3">
-                        <Button onClick={() => onCheckout(p)} >
+                        <Button loading={isLoading} onClick={() => onCheckout(p)} >
                             Checkout Integration
                         </Button>
-                        <Button onClick={() => onPayIntent(p)} >
+                        <Button loading={isLoading} onClick={() => onPayIntent(p)} >
                             Pay Intent Integration
                         </Button>
                     </div>

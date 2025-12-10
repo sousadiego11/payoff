@@ -12,6 +12,7 @@ export function PaymentIntentForm({ intent }: { intent: Stripe.Response<Stripe.P
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e: any) => {
+        setIsLoading(true)
         e.preventDefault();
 
         if (!stripe || !elements) return;
@@ -27,6 +28,7 @@ export function PaymentIntentForm({ intent }: { intent: Stripe.Response<Stripe.P
         } else {
             setMessage("An unexpected error occurred.");
         }
+        setIsLoading(false)
     };
 
     return (
@@ -37,6 +39,7 @@ export function PaymentIntentForm({ intent }: { intent: Stripe.Response<Stripe.P
                 type="submit"
                 disabled={isLoading || !stripe || !elements}
                 className="w-full py-3 text-base font-semibold rounded-xl"
+                loading={isLoading}
             >
                 Pay {Currency.format(Currency.fromStripeAmount(intent.amount))} now
             </Button>
