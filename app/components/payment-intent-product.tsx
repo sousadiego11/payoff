@@ -1,5 +1,5 @@
 import React from "react";
-import type { Product } from "~/server/database/Products";
+import type { Product } from "~/server/database/Database";
 import { Currency } from "~/utils/Currency";
 
 type Props = {

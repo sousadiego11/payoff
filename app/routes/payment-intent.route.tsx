@@ -2,7 +2,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import type Stripe from "stripe";
 import PaymentIntentProduct from "~/components/payment-intent-product";
-import { DB, type Product } from "~/server/database/Products";
+import { DB, type Product } from "~/server/database/Database";
 import { StripeIntentPort } from "~/server/stripe/StripeIntentPort";
 import { PaymentIntentForm } from "../components/payment-intent-form";
 import type { Route } from "../+types/root";
@@ -17,10 +17,11 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export async function loader({ params }: Route.LoaderArgs) {
-    const { productId } = params as { productId: string };
+    const { productId, userSession } = params as { productId: string, userSession: string };
 
-    const product = new DB().getProductById(Number(productId));
-    const intent = await new StripeIntentPort().create(product, Currency.getCurrencyCode())
+    const db = await DB.make();
+    const product = await db.getProductById(Number(productId));
+    const intent = await new StripeIntentPort().create(product, Currency.getCurrencyCode(), userSession)
     return { intent, product }
 }
 
