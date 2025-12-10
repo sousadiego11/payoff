@@ -21,7 +21,7 @@ type ClientSessionId = string
 type PurchaseId = string
 export type PurchaseInformation = {
     product: Product,
-    payment: Stripe.PaymentIntent,
+    payment: Stripe.PaymentIntent | Stripe.Charge,
     process: {
         viewed: boolean
     }

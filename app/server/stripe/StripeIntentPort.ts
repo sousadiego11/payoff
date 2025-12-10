@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { type Product } from '../database/Database'
+import { DB, type Product } from '../database/Database'
 import { Currency } from '~/utils/Currency';
 import { StripeMaker } from './StripeMaker';
 

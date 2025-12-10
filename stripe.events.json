@@ -1,0 +1,29 @@
+{
+    "_meta": {
+        "template_version": 0,
+        "exclude_metadata": false
+    },
+    "fixtures": [
+        {
+            "name": "payment_intent",
+            "expected_error_type": "",
+            "path": "/v1/payment_intents",
+            "method": "post",
+            "params": {
+                "amount": 100,
+                "confirm": true,
+                "currency": "usd",
+                "description": "(created by Stripe CLI)",
+                "payment_method": "pm_card_visa",
+                "payment_method_types": [
+                    "card"
+                ],
+                "metadata": {
+                    "user_session": "6fcba05f-dd37-4f7f-bfa7-f137d1168cca",
+                    "product_id": "2"
+                }
+            }
+        }
+    ],
+    "env": null
+}
