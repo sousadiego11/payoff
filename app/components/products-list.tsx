@@ -3,7 +3,11 @@ import { Button } from "./button";
 
 export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Product) => void; onPayIntent: (p: Product) => void; }) {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="
+            grid grid-cols-1 md:grid-cols-2 gap-12 
+            rounded-xl  p-6
+            bg-white/40 backdrop-blur-md border border-white/30 shadow-lg
+        ">
             {products.map(p => (
                 <div key={p.id} className="relative bg-white rounded-xl shadow-md overflow-hidden p-4 flex flex-col transform hover:scale-102 hover:shadow-xl transition-transform duration-200">
                     <img src={p.image} alt={p.name} className="w-full h-40 object-cover rounded-lg" />

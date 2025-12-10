@@ -6,9 +6,22 @@ import { DB } from "./server/database/Database";
 
 const app = new Hono()
 
+app.get("/api/purchases", async (c) => {
+    const session = c.req.query("user_session");
+
+    if (!session) {
+        return c.json({ error: "Missing session" }, 400);
+    }
+
+    const db = await DB.make();
+    const purchases = await db.getPurchases(session);
+
+    return c.json(purchases);
+});
+
 app.post("/api/webhook", async (c) => {
     const stripe = StripeMaker()
-    const buf = Buffer.from(await c.req.arrayBuffer());
+    const reqraw = await c.req.text()
 
     const signature = c.req.header('stripe-signature');
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -16,19 +29,19 @@ app.post("/api/webhook", async (c) => {
 
     try {
         const event = stripe.webhooks.constructEvent(
-            buf,
+            reqraw,
             signature,
             endpointSecret
         );
 
-        const pi: any = event.data.object;
+        const pi = event.data.object as Stripe.PaymentIntent;
         const db = await DB.make()
 
         await db.updatePurchase(
-            pi.object.metadata.user_session!,
+            pi.metadata.user_session!,
             pi.id,
             {
-                product: await db.getProductById(Number(pi.object.metadata.product_id)),
+                product: await db.getProductById(Number(pi.metadata.product_id)),
                 payment: pi,
                 process: {
                     viewed: false
@@ -37,7 +50,7 @@ app.post("/api/webhook", async (c) => {
         )
         return c.text("Webhook received");
     } catch (err) {
-        return c.text("Webhook signature verification failed.", 400);
+        return c.text("Internal Server Error.", 500);
     }
 })
 

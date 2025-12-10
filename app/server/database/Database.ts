@@ -13,12 +13,13 @@ export type Product = {
 export const products: Array<Product> = [
     { id: 1, name: "Aenean fringilla", price: 129.00, oldPrice: 199.00, progress: 75, saleLabel: "9/10", image: "https://picsum.photos/600" },
     { id: 2, name: "Fusce accumsan", price: 79.00, oldPrice: 129.00, progress: 45, saleLabel: "5/10", image: "https://picsum.photos/700" },
-    { id: 3, name: "Mauris pulvinar", price: 39.00, oldPrice: 59.00, progress: 90, saleLabel: "9/10", image: "https://picsum.photos/800" }
+    { id: 3, name: "Mauris pulvinar", price: 39.00, oldPrice: 59.00, progress: 90, saleLabel: "9/10", image: "https://picsum.photos/800" },
+    { id: 3, name: "Emte Os", price: 39.00, oldPrice: 59.00, progress: 90, saleLabel: "9/10", image: "https://picsum.photos/900" }
 ];
 
 type ClientSessionId = string
 type PurchaseId = string
-type PurchaseInformation = {
+export type PurchaseInformation = {
     product: Product,
     payment: Stripe.PaymentIntent,
     process: {
@@ -44,6 +45,7 @@ export class DB {
     async updatePurchase(userSession: ClientSessionId, purchaseId: PurchaseId, update: PurchaseInformation) {
         const userPurchases: ClientPurchases = purchases.get(userSession) || new Map()
         userPurchases.set(purchaseId, update)
+        purchases.set(userSession, userPurchases)
     }
 
     async getPurchases(userSession: ClientSessionId): Promise<Array<PurchaseInformation>> {
