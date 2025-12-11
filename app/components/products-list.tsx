@@ -35,12 +35,9 @@ export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Prod
                         </div>
                     </div>
 
-                    <div className="mt-4 flex items-center justify-between gap-3">
-                        <Button loading={isLoading} onClick={() => onCheckout(p)} >
-                            Checkout Integration
-                        </Button>
+                    <div className="mt-4 flex">
                         <Button loading={isLoading} onClick={() => onPayIntent(p)} >
-                            Pay Intent Integration
+                            Buy Now!
                         </Button>
                     </div>
                 </div>

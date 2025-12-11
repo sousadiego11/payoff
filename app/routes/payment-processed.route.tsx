@@ -3,7 +3,7 @@ import type { Route } from "../+types/root";
 import { useNavigate } from "react-router";
 import { Button } from "~/components/button";
 import { Spinner } from "~/components/spinner";
-import { PaymentProcessingCard } from "~/components/payment-processing-card";
+import { Glass } from "~/components/glass";
 
 export function meta({ }: Route.MetaArgs) {
     return [
@@ -16,25 +16,39 @@ export default function PaymentProcessed(props: Route.ComponentProps) {
     const [secondsLeft, setSecondsLeft] = useState(10);
 
     useEffect(() => {
-        const t = setInterval(() => {
-            setSecondsLeft(s => s - 1);
-        }, 1000);
-
+        const t = setInterval(() => setSecondsLeft(s => s - 1), 1000);
         return () => clearInterval(t);
     }, []);
 
     useEffect(() => {
-        if (secondsLeft <= 0) {
-            navigate("/");
-        }
+        if (secondsLeft <= 0) navigate("/");
     }, [secondsLeft, navigate]);
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
-            <PaymentProcessingCard
-                navigate={() => navigate('/')}
-                secondsLeft={secondsLeft}
-            />
-        </div>
+        <main className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-50 via-blue-100 to-purple-200 p-6">
+            <Glass className="max-w-2xl w-full p-8 text-center flex flex-col items-center gap-6">
+                {/* Processing spinner */}
+                <Spinner className="text-indigo-600 h-12 w-12" />
+
+                <h1 className="text-2xl font-bold">Your payment is being processed</h1>
+
+                <p className="text-gray-700">
+                    We received your payment request and it may take a few moments to confirm it.
+                    You will be notified once the status is updated.
+                </p>
+
+                <div className="text-sm text-gray-700">
+                    Redirecting to the home page in{" "}
+                    <span className="font-medium">{secondsLeft}</span> seconds...
+                </div>
+
+                <Button
+                    onClick={() => navigate('/')}
+                    className="w-36 py-2"
+                >
+                    Go now
+                </Button>
+            </Glass>
+        </main>
     );
 }
