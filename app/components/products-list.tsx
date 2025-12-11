@@ -2,6 +2,7 @@ import { products } from "~/server/database/Database";
 import { Button } from "./button";
 import type { Product } from "~/server/domain/Product";
 import { useNavigation } from "react-router";
+import { Glass } from "./glass";
 
 export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Product) => void; onPayIntent: (p: Product) => void; }) {
 
@@ -9,11 +10,7 @@ export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Prod
     const isLoading = navigation.state !== "idle";
 
     return (
-        <div className="
-            grid grid-cols-1 md:grid-cols-2 gap-12 
-            rounded-xl  p-6
-            bg-white/40 backdrop-blur-md border border-white/30 shadow-lg
-        ">
+        <Glass className="grid grid-cols-1 md:grid-cols-2 gap-12 p-6">
             {products.map(p => (
                 <div key={p.id} className="relative bg-white rounded-xl shadow-md overflow-hidden p-4 flex flex-col transform hover:scale-102 hover:shadow-xl transition-transform duration-200">
                     <img src={p.image} alt={p.name} className="w-full h-40 object-cover rounded-lg" />
@@ -48,6 +45,6 @@ export function ProductsList({ onCheckout, onPayIntent }: { onCheckout: (p: Prod
                     </div>
                 </div>
             ))}
-        </div>
+        </Glass>
     );
 }

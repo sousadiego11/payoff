@@ -1,10 +1,26 @@
+import { Link, useNavigate } from "react-router";
+import { Glass } from "./glass";
 
 export function Header() {
+    const nav = useNavigate()
+
     return (
-        <header className="flex items-center justify-between rounded-xl p-6 bg-white/40 backdrop-blur-md border border-white/30 shadow-lg">
+        <Glass onClick={() => nav('/')} className="flex items-center justify-between p-6">
             <div className="max-w-xl">
                 <h1 className="text-gray-800 text-6xl font-extrabold leading-tight">
-                    Welcome to <span className="text-indigo-600">Payoff!</span>
+                    Welcome to{" "}
+                    <Link
+                        to="/"
+                        className="
+                            text-indigo-600
+                            cursor-pointer
+                            inline-block
+                            transition-transform duration-300
+                            hover:scale-108
+                        "
+                    >
+                        Payoff!
+                    </Link>
                 </h1>
 
                 <p className="text-gray-700 mt-3 text-lg">
@@ -16,6 +32,6 @@ export function Header() {
                     fully implemented and ready for testing.
                 </p>
             </div>
-        </header>
+        </Glass>
     )
 }

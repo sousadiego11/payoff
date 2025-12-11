@@ -1,6 +1,7 @@
 import { Currency } from "~/server/domain/Currency";
 import { PaymentStatusBadge } from "./payment-status-badge";
 import type { Purchase } from "~/server/domain/Purchase";
+import { Glass } from "./glass";
 
 type Props = {
     purchases: Purchase.Purchase[];
@@ -22,9 +23,7 @@ function ViewedBadge({ viewed }: { viewed: boolean }) {
 
 export default function PurchasesCard({ purchases }: Props) {
     return (
-        <div
-            className={`rounded-xl p-4 bg-white/40 backdrop-blur-md border border-white/30 shadow-lg`}
-        >
+        <Glass className="p-4">
             <div className="flex items-center justify-between mb-3">
                 <h3 className="font-bold text-lg">Purchases</h3>
                 <span className="text-sm text-gray-500">
@@ -67,6 +66,6 @@ export default function PurchasesCard({ purchases }: Props) {
                     );
                 })}
             </div>
-        </div>
+        </Glass>
     );
 }
