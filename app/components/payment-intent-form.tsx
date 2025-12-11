@@ -1,4 +1,4 @@
-import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { AddressElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import type Stripe from "stripe";
 import { Button } from "~/components/button";
@@ -33,6 +33,7 @@ export function PaymentIntentForm({ intent }: { intent: Stripe.Response<Stripe.P
 
     return (
         <form id="payment-form" className="flex flex-col gap-6" onSubmit={handleSubmit}>
+            <AddressElement id="address-element" options={{ mode: 'shipping' }} />
             <PaymentElement id="payment-element" options={{ layout: 'accordion' }} />
             <Button
                 id="submit"

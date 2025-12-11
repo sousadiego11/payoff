@@ -35,11 +35,11 @@ export default function PaymentIntent(props: Route.ComponentProps) {
 
     return (
         <main className="min-h-screen bg-linear-to-br from-indigo-50 via-blue-100 to-purple-200">
-            <section className="px-48 pt-18">
+            <section className="px-48 pt-10">
                 <Header />
             </section>
 
-            <section className="px-48 pt-18">
+            <section className="px-48 pt-10">
                 <Glass className="flex flex-row gap-12 p-6">
                     <div className="flex-2">
                         <Elements

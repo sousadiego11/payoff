@@ -5,7 +5,7 @@ export function Header() {
     const nav = useNavigate()
 
     return (
-        <Glass onClick={() => nav('/')} className="flex items-center justify-between p-6">
+        <Glass className="flex items-center justify-between p-6">
             <div className="max-w-xl">
                 <h1 className="text-gray-800 text-6xl font-extrabold leading-tight">
                     Welcome to{" "}
