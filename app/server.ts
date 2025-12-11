@@ -4,4 +4,6 @@ import { api } from "./server/api";
 
 const app = new Hono()
 app.route('/api', api);
-export default app;  // ← Isso é o que o Vercel precisa
+export default createHonoServer({
+    app
+})
