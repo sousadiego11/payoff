@@ -1,11 +1,10 @@
-import type { HonoRequest } from "hono";
+import Stripe from "stripe";
+import { DB } from "../database/Database";
+import { Currency } from "../domain/Currency";
 import type { Product } from "../domain/Product";
 import type { Purchase } from "../domain/Purchase";
 import type { IPurchaseProcessor } from "../domain/PurchaseProcessor";
 import type { Session } from "../domain/Session";
-import { DB } from "../database/Database";
-import Stripe from "stripe";
-import { Currency } from "../domain/Currency";
 import { StripeMapper } from "./StripeMapper";
 
 export class StripePurchaseAdapter implements IPurchaseProcessor {
@@ -20,8 +19,8 @@ export class StripePurchaseAdapter implements IPurchaseProcessor {
         return new StripePurchaseAdapter(db, new Stripe(process.env.STRIPE_SECRET_KEY!))
     }
 
-    async processPayment(req: HonoRequest): Promise<Purchase.Purchase> {
-        const signature = req.header('stripe-signature');
+    async processPayment(req: Request): Promise<Purchase.Purchase> {
+        const signature = req.headers.get('stripe-signature');
         const reqraw = await req.text()
         const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
