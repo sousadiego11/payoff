@@ -1,87 +1,96 @@
-# Welcome to React Router!
+# Payoff
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Fictional demonstration project showcasing **Stripe** integration and **full stack** development using **React Router**.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## 📋 About the Project
 
-## Features
+Payoff is a demonstration application that simulates an e-commerce environment to test and showcase Stripe integrations. The project was developed to serve as a reference implementation for payments, including Checkout Sessions, Payment Intents, and Webhooks.
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+**⚠️ Important:** This is a demonstration project. Only Stripe test keys are used and no real payments are processed.
 
-## Getting Started
+## 🛠️ Technologies
 
-### Installation
+### Frontend
+- **React 19** - JavaScript library for building user interfaces
+- **React Router 7** - Routing and server state management
+- **TypeScript** - Static type checking
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **Stripe Elements** - Stripe payment components
 
-Install the dependencies:
+### Backend
+- **React Router (Server-side)** - Full stack framework
+- **Stripe SDK** - Stripe API integration
 
-```bash
-npm install
-```
+### Tools
+- **Vite** - Build tool and dev server
+- **pnpm** - Package manager
 
-### Development
+## 🚀 Features
 
-Start the development server with HMR:
+- ✅ **Checkout Sessions** - Complete Stripe payment flow
+- ✅ **Payment Intents** - Granular control over payment process
+- ✅ **Webhooks** - Real-time Stripe event processing
+- ✅ **Responsive Interface** - Mobile and desktop adaptive design
+- ✅ **Purchase Management** - Transaction history visualization
 
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
+## 📦 Installation
 
 ```bash
-npm run build
+# Install dependencies
+pnpm install
 ```
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
+## 🏃 Development
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+# Start development server
+pnpm dev
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+The application will be available at `http://localhost:5173`.
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+## 🏗️ Production Build
 
-### DIY Deployment
+```bash
+# Create production build
+pnpm build
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+# Run production build
+pnpm start
 ```
 
-## Styling
+## 🔧 Stripe Configuration
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+To use this project, you will need to:
+
+1. Create a [Stripe](https://stripe.com) account
+2. Get your API keys (test mode)
+3. Configure environment variables with your keys
+4. Set up the webhook endpoint in the Stripe dashboard
+
+## 📁 Project Structure
+
+```
+app/
+├── components/          # Reusable React components
+├── routes/             # Application routes and pages
+├── server/             # Server logic and Stripe integration
+├── hooks/              # Custom React hooks
+└── assets/             # Static resources
+```
+
+## 🎯 Purpose
+
+This project serves as:
+- **Demonstration** of complete Stripe integration
+- **Reference** for full stack development with React Router
+- **Template** for projects that need to process payments
+- **Learning** resource for modern web application best practices
+
+## 📝 License
+
+This is a demonstration project and can be freely used for educational purposes.
 
 ---
 
-Built with ❤️ using React Router.
+Built with ❤️ using React Router and Stripe.
