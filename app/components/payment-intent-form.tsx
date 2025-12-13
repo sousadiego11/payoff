@@ -32,14 +32,14 @@ export function PaymentIntentForm({ intent }: { intent: Stripe.Response<Stripe.P
     };
 
     return (
-        <form id="payment-form" className="flex flex-col gap-6" onSubmit={handleSubmit}>
+        <form id="payment-form" className="flex flex-col gap-4 sm:gap-6" onSubmit={handleSubmit}>
             <AddressElement id="address-element" options={{ mode: 'shipping' }} />
             <PaymentElement id="payment-element" options={{ layout: 'accordion' }} />
             <Button
                 id="submit"
                 type="submit"
                 disabled={isLoading || !stripe || !elements}
-                className="w-full py-3 text-base font-semibold rounded-xl"
+                className="w-full py-2 sm:py-3 text-sm sm:text-base font-semibold rounded-xl"
                 loading={isLoading}
             >
                 Pay {Currency.format(Currency.fromStripeAmount(intent.amount))} now

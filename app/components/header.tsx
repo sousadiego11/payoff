@@ -5,9 +5,9 @@ export function Header() {
     const nav = useNavigate()
 
     return (
-        <Glass className="flex items-center justify-between p-6">
-            <div className="max-w-xl">
-                <h1 className="text-gray-800 text-6xl font-extrabold leading-tight">
+        <Glass className="flex items-center justify-between p-4 sm:p-5 md:p-6">
+            <div className="max-w-xl w-full">
+                <h1 className="text-gray-800 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
                     Welcome to{" "}
                     <Link
                         to="/"
@@ -23,11 +23,11 @@ export function Header() {
                     </Link>
                 </h1>
 
-                <p className="text-gray-700 mt-3 text-lg">
+                <p className="text-gray-700 mt-2 sm:mt-3 text-base sm:text-lg">
                     A clean and modern environment to test Stripe integrations.
                 </p>
 
-                <p className="text-gray-600 mt-2 text-base">
+                <p className="text-gray-600 mt-2 text-sm sm:text-base">
                     Explore and experiment with Checkout, Payment Intents, and Webhooks —
                     fully implemented and ready for testing.
                 </p>

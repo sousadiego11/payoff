@@ -23,17 +23,17 @@ function ViewedBadge({ viewed }: { viewed: boolean }) {
 
 export default function PurchasesCard({ purchases }: Props) {
     return (
-        <Glass className="p-4">
+        <Glass className="p-3 sm:p-4">
             <div className="flex items-center justify-between mb-3">
-                <h3 className="font-bold text-lg">Purchases</h3>
-                <span className="text-sm text-gray-500">
+                <h3 className="font-bold text-base sm:text-lg">Purchases</h3>
+                <span className="text-xs sm:text-sm text-gray-500">
                     {purchases.length} items
                 </span>
             </div>
 
-            <div className="flex flex-col gap-4 divide-y divide-gray-100 max-h-96 overflow-auto pr-2">
+            <div className="flex flex-col gap-3 sm:gap-4 divide-y divide-gray-100 max-h-96 overflow-auto pr-1 sm:pr-2">
                 {purchases.length === 0 && (
-                    <div className="p-4 text-sm text-gray-600">
+                    <div className="p-3 sm:p-4 text-xs sm:text-sm text-gray-600">
                         No purchases found.
                     </div>
                 )}
@@ -42,20 +42,22 @@ export default function PurchasesCard({ purchases }: Props) {
                     const amount = Currency.format(Currency.fromStripeAmount(purchase.payment.amount))
 
                     return (
-                        <div key={i} className="p-4 flex flex-col gap-2 bg-white rounded-xl">
-                            <div className="flex gap-2 items-center justify-between">
-                                <div className="font-semibold text-gray-900">
+                        <div key={i} className="p-3 sm:p-4 flex flex-col gap-2 bg-white rounded-xl">
+                            <div className="flex flex-wrap gap-2 items-center justify-between">
+                                <div className="font-semibold text-gray-900 text-sm sm:text-base break-words flex-1 min-w-0">
                                     {purchase.product.name}
                                 </div>
-                                <PaymentStatusBadge purchase={purchase} />
-                                <ViewedBadge viewed={purchase.viewed} />
+                                <div className="flex gap-1 sm:gap-2 items-center flex-shrink-0">
+                                    <PaymentStatusBadge purchase={purchase} />
+                                    <ViewedBadge viewed={purchase.viewed} />
+                                </div>
                             </div>
 
-                            <div className="text-sm text-gray-700">
+                            <div className="text-xs sm:text-sm text-gray-700 break-words">
                                 <strong>Price:</strong> {amount}
                             </div>
 
-                            <div className="text-sm text-gray-700">
+                            <div className="text-xs sm:text-sm text-gray-700 break-all">
                                 <strong>Identifier:</strong> {purchase.id}
                             </div>
 

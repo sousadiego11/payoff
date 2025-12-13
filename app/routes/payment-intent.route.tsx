@@ -35,13 +35,13 @@ export default function PaymentIntent(props: Route.ComponentProps) {
 
     return (
         <main className="min-h-screen bg-linear-to-br from-indigo-50 via-blue-100 to-purple-200">
-            <section className="px-48 pt-10">
+            <section className="px-4 sm:px-6 md:px-12 lg:px-24 xl:px-48 pt-6 sm:pt-8 md:pt-10">
                 <Header />
             </section>
 
-            <section className="px-48 pt-10">
-                <Glass className="flex flex-row gap-12 p-6">
-                    <div className="flex-2">
+            <section className="px-4 sm:px-6 md:px-12 lg:px-24 xl:px-48 pt-6 sm:pt-8 md:pt-10 pb-8">
+                <Glass className="flex flex-col lg:flex-row gap-6 lg:gap-12 p-4 sm:p-5 md:p-6">
+                    <div className="flex-1 lg:flex-[2] w-full">
                         <Elements
                             stripe={stripePromise}
                             options={{ clientSecret: data.intent.client_secret! }}
@@ -49,7 +49,7 @@ export default function PaymentIntent(props: Route.ComponentProps) {
                             <PaymentIntentForm intent={data.intent} />
                         </Elements>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 w-full lg:w-auto lg:min-w-[300px]">
                         <PaymentIntentProduct product={data.product} />
                     </div>
                 </Glass>
